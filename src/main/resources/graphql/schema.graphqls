@@ -1,0 +1,9 @@
+type Query {
+    guitarPositions: [GuitarPosition]
+    chord: [Chord]
+}
+type Subscription {
+    noteOn: PitchEvent
+    noteOff: PitchEvent
+    chordChange: [Chord]
+}
