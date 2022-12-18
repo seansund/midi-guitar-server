@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-	implementation 'midi-guitar:midi-guitar:0.2.1'
+	implementation 'midi-guitar:midi-guitar:0.4.0'
 	implementation group: 'io.reactivex.rxjava3', name: 'rxjava', version: '3.1.5'
 	implementation group: 'io.projectreactor.addons', name: 'reactor-adapter', version: '3.5.0'
 	implementation 'org.springframework.boot:spring-boot-starter-graphql'
@@ -31,6 +31,12 @@ dependencies {
 	testImplementation 'org.springframework:spring-webflux'
 	testImplementation 'org.springframework.graphql:spring-graphql-test'
 	testImplementation 'io.projectreactor:reactor-test'
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+	annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+
+	testCompileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+	testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
 }
 
 tasks.named('test') {
