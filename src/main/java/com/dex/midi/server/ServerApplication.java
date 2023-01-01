@@ -18,12 +18,9 @@ import java.util.concurrent.TimeUnit;
 public class ServerApplication implements ApplicationRunner, AutoCloseable {
 
 	private final MidiDriver driver;
-	private final FretBoardConfigRepository repository;
-	private Disposable disposable;
 
-	public ServerApplication(MidiDriver driver, FretBoardConfigRepository repository) {
+	public ServerApplication(MidiDriver driver) {
 		this.driver = driver;
-		this.repository = repository;
 	}
 
 	public static void main(String[] args) {
@@ -34,19 +31,11 @@ public class ServerApplication implements ApplicationRunner, AutoCloseable {
 	public void run(ApplicationArguments args) throws Exception {
 		System.out.println("**** Starting up");
 
-		final Iterator<GuitarKey> keys = new CircularIterator<GuitarKey>(repository.getAvailableKeys());
-
-		disposable = Observable
-				.interval(1, 2, TimeUnit.SECONDS)
-				.subscribe((Long next) -> {
-					repository.updateGuitarKey(keys.next());
-				});
+		driver.run();
 	}
 
 	@Override
 	public void close() throws Exception {
-		if (disposable != null) {
-			disposable.dispose();
-		}
+		driver.close();
 	}
 }

@@ -2,6 +2,8 @@ type Query {
     getAvailableKeys: [GuitarKey]
     getAvailableModes: [FretBoardMode]
     getFretBoardConfig: FretBoardConfig
+    getGuitarPositions: [GuitarPosition]
+    getChords: [Chord]
 }
 
 type Mutation {
@@ -11,6 +13,8 @@ type Mutation {
 
 type Subscription {
     fretBoardConfig: FretBoardConfig
+    guitarPositions: [GuitarPosition]
+    chords: [Chord]
 }
 
 type GuitarKey {
@@ -26,4 +30,15 @@ type FretBoardMode {
 type FretBoardConfig {
     key: String!
     mode: String!
+}
+
+type GuitarPosition {
+    stringIndex: Int!
+    fretIndex: Int!
+    active: Boolean!
+    bend: Boolean!
+}
+
+type Chord {
+    label: String!
 }

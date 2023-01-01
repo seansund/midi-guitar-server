@@ -13,7 +13,7 @@ public class FretBoardConfigRepository {
     private final BehaviorSubject<FretBoardConfig> subject;
 
     public FretBoardConfigRepository() {
-        System.out.println("**** New repository");
+        System.out.println("**** New FretBoardConfigRepository");
         subject = BehaviorSubject.createDefault(
                 FretBoardConfig.of(
                         GuitarKeys.instance().getDefaultKey().getKey(),
