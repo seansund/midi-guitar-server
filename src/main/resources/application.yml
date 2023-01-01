@@ -3,10 +3,11 @@ spring:
     active: mock
   graphql:
     websocket:
-      path: /graphql
+      path: /subscription
     schema:
       printer:
         enabled: true
+    path: /graphql
 
 management:
   endpoints:

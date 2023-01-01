@@ -35,7 +35,7 @@
             let result;
             client.subscribe(
                 {
-                    query: `{ getAvailableKeys { key label } }`,
+                    query: `query { getAvailableKeys { key label } }`,
                 },
                 {
                     next: (data) => (result = data),
@@ -52,7 +52,7 @@
             let result;
             client.subscribe(
                 {
-                    query: `{ getAvailableModes { mode label } }`,
+                    query: `query { getAvailableModes { mode label } }`,
                 },
                 {
                     next: (data) => (result = data),

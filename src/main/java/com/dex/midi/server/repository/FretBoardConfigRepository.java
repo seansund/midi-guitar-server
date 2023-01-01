@@ -10,9 +10,10 @@ import java.util.List;
 
 @Repository
 public class FretBoardConfigRepository {
-    private BehaviorSubject<FretBoardConfig> subject;
+    private final BehaviorSubject<FretBoardConfig> subject;
 
     public FretBoardConfigRepository() {
+        System.out.println("**** New repository");
         subject = BehaviorSubject.createDefault(
                 FretBoardConfig.of(
                         GuitarKeys.instance().getDefaultKey().getKey(),

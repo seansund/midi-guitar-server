@@ -32,6 +32,8 @@ public class ServerApplication implements ApplicationRunner, AutoCloseable {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
+		System.out.println("**** Starting up");
+
 		final Iterator<GuitarKey> keys = new CircularIterator<GuitarKey>(repository.getAvailableKeys());
 
 		disposable = Observable

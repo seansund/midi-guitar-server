@@ -3,15 +3,19 @@ package com.dex.midi.server.controllers;
 import com.dex.midi.server.model.*;
 import com.dex.midi.server.repository.FretBoardConfigRepository;
 import io.reactivex.rxjava3.core.BackpressureStrategy;
+import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import reactor.adapter.rxjava.RxJava3Adapter;
 import reactor.core.publisher.Flux;
 
 import java.util.List;
 
 @Controller
+@CrossOrigin
 public class FretBoardConfigController {
     private final FretBoardConfigRepository repo;
 
@@ -22,7 +26,6 @@ public class FretBoardConfigController {
     @QueryMapping
     public List<GuitarKey> getAvailableKeys() {
         final List<GuitarKey> keys = repo.getAvailableKeys();
-        System.out.println("Getting keys: " + keys);
         return keys;
     }
 
@@ -37,17 +40,19 @@ public class FretBoardConfigController {
     }
 
     @MutationMapping
-    public FretBoardConfig updateFretBoardMode(String mode) {
+    public FretBoardConfig updateFretBoardMode(@Argument("mode") String mode) {
         return repo.updateFretBoardMode(FretBoardModes.lookupMode(mode));
     }
 
     @MutationMapping
-    public FretBoardConfig updateGuitarKey(String key) {
+    public FretBoardConfig updateGuitarKey(@Argument("key") String key) {
         return repo.updateGuitarKey(GuitarKeys.lookupKey(key));
     }
 
     @SubscriptionMapping
     public Flux<FretBoardConfig> fretBoardConfig() {
-        return Flux.from(repo.getObservable().toFlowable(BackpressureStrategy.BUFFER));
+        System.out.println("**** Subscribe to fretBoardConfig");
+
+        return RxJava3Adapter.observableToFlux(repo.getObservable(), BackpressureStrategy.LATEST);
     }
 }
