@@ -5,6 +5,7 @@ type Query {
     getGuitarPositions: [GuitarPosition]
     getChords: [Chord]
     getFretBoardLabels: [FretBoardLabel]
+    getLastKeyPressed: String
 }
 
 type Mutation {
@@ -17,6 +18,7 @@ type Subscription {
     guitarPositions: [GuitarPosition]
     chords: [Chord]
     fretBoardLabels: [FretBoardLabel]
+    keyPressed: String
 }
 
 type GuitarKey {
