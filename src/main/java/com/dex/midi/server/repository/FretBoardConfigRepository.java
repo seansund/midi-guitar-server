@@ -1,8 +1,11 @@
 package com.dex.midi.server.repository;
 
-import com.dex.midi.server.model.*;
+import com.dex.midi.server.model.FretBoardConfig;
+import com.dex.midi.server.model.FretBoardMode;
+import com.dex.midi.server.model.GuitarKey;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.BehaviorSubject;
+import jakarta.annotation.PreDestroy;
 import lombok.NonNull;
 import org.springframework.stereotype.Repository;
 
@@ -12,22 +15,18 @@ import java.util.List;
 public class FretBoardConfigRepository {
     private final BehaviorSubject<FretBoardConfig> subject;
 
-    public FretBoardConfigRepository() {
+    public FretBoardConfigRepository(FretBoardLayoutRepository layoutRepository) {
         System.out.println("**** New FretBoardConfigRepository");
         subject = BehaviorSubject.createDefault(
                 FretBoardConfig.of(
-                        GuitarKeys.instance().getDefaultKey().getKey(),
-                        FretBoardModes.instance().getDefaultMode().getMode()
+                        GuitarKey.defaultKey().getKey(),
+                        layoutRepository.getDefaultMode().getMode()
                 )
         );
     }
 
     public List<GuitarKey> getAvailableKeys() {
-        return GuitarKeys.instance().getKeys();
-    }
-
-    public List<FretBoardMode> getAvailableModes() {
-        return FretBoardModes.instance().getModes();
+        return GuitarKey.getKeys();
     }
 
     public Observable<FretBoardConfig> getObservable() {
@@ -52,5 +51,10 @@ public class FretBoardConfigRepository {
         subject.onNext(newConfig);
 
         return newConfig;
+    }
+
+    @PreDestroy
+    public void close() {
+        subject.onComplete();
     }
 }

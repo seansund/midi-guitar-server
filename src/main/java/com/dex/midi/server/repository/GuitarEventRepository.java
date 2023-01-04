@@ -7,6 +7,7 @@ import com.dex.midi.server.model.ActiveGuitarPosition;
 import com.dex.midi.server.model.ChordLabel;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.subjects.BehaviorSubject;
+import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -49,5 +50,11 @@ public class GuitarEventRepository {
 
     public Observable<Collection<ChordLabel>> chords() {
         return this.chords;
+    }
+
+    @PreDestroy
+    public void close() {
+        positions.onComplete();
+        chords.onComplete();
     }
 }

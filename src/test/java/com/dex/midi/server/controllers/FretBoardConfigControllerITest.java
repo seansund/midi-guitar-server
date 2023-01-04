@@ -1,11 +1,11 @@
 package com.dex.midi.server.controllers;
 
 import com.dex.midi.server.model.FretBoardConfig;
-import com.dex.midi.server.model.FretBoardModes;
 import com.dex.midi.server.model.GuitarKey;
-import com.dex.midi.server.model.GuitarKeys;
+import com.dex.midi.server.repository.FretBoardLayoutRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -30,6 +30,9 @@ public class FretBoardConfigControllerITest {
 
     private GraphQlTester graphQlTester;
 
+    @Autowired
+    private FretBoardLayoutRepository repo;
+
     @BeforeEach
     void setUp() {
         URI url = URI.create(baseUrl);
@@ -46,7 +49,7 @@ public class FretBoardConfigControllerITest {
         final List<GuitarKey> list = value.get();
         System.out.println("Guitar key result: " + list);
 
-        value.contains(GuitarKeys.lookupKey("G"));
+        value.contains(GuitarKey.lookup("G"));
     }
 
     @Test
@@ -56,6 +59,7 @@ public class FretBoardConfigControllerITest {
                 .toFlux("fretBoardConfig", FretBoardConfig.class);
 
         StepVerifier.create(result)
-                .expectNext(FretBoardConfig.of(GuitarKeys.defaultKey().getKey(), FretBoardModes.defaultMode().getMode()));
+                .expectNext(FretBoardConfig.of(GuitarKey.defaultKey().getKey(), repo.getDefaultMode().getMode()))
+                .verifyComplete();
     }
 }

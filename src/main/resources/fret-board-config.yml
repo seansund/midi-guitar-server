@@ -1,0 +1,54 @@
+defaultMode: notes
+modes:
+  - mode: notes
+    label: Notes
+    pages:
+      - file: layouts/notes/layout.csv
+  - mode: keyboard-major
+    label: Keyboard Major Scale
+    key: G
+    pages:
+      - page: one
+        shift: off
+        file: layouts/keyboard-major/page1-nonshift.csv
+      - page: one
+        shift: on
+        file: layouts/keyboard-major/page1-shift.csv
+      - page: two
+        shift: off
+        file: layouts/keyboard-major/page2-nonshift.csv
+      - page: two
+        shift: on
+        file: layouts/keyboard-major/page2-shift.csv
+  - mode: keyboard-pentatonic
+    label: Keyboard Pentatonic
+    key: G
+    pages:
+      - page: one
+        shift: off
+        file: layouts/keyboard-pentatonic/page1-nonshift.csv
+      - page: one
+        shift: on
+        file: layouts/keyboard-pentatonic/page1-shift.csv
+      - page: two
+        shift: off
+        file: layouts/keyboard-pentatonic/page2-nonshift.csv
+      - page: two
+        shift: on
+        file: layouts/keyboard-pentatonic/page2-shift.csv
+  - mode: keyboard-harmonic-minor
+    label: Keyboard Harmonic Minor
+    key: G
+    pages:
+      - page: one
+        shift: off
+        file: layouts/keyboard-harmonic-minor/page1-nonshift.csv
+      - page: one
+        shift: on
+        file: layouts/keyboard-harmonic-minor/page1-shift.csv
+      - page: two
+        shift: off
+        file: layouts/keyboard-harmonic-minor/page2-nonshift.csv
+      - page: two
+        shift: on
+        file: layouts/keyboard-harmonic-minor/page2-shift.csv

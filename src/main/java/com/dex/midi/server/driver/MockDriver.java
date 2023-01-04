@@ -7,14 +7,15 @@ import com.dex.midi.event.PitchEvent;
 import com.dex.midi.event.SimpleMidiEventProducer;
 import com.dex.midi.model.GuitarPosition;
 import com.dex.midi.model.GuitarPositions;
-import com.dex.midi.server.model.GuitarKey;
 import com.dex.midi.server.model.GuitarPositionFactory;
-import com.dex.midi.server.repository.FretBoardConfigRepository;
 import com.dex.midi.util.CircularIterator;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+import jakarta.annotation.PreDestroy;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.ShortMessage;
@@ -22,16 +23,15 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
-
-public class MockDriver implements MidiDriver {
+@Component("MidiDriver")
+@Profile("mock")
+public class MockDriver implements MidiDriver, ApplicationRunner {
     private final SimpleMidiEventProducer producer;
-    private final FretBoardConfigRepository repository;
     private Disposable disposable;
 
-    public MockDriver(FretBoardConfigRepository repository) {
+    public MockDriver() {
         System.out.println("Creating MockDriver");
         producer = SimpleMidiEventProducer.getInstance();
-        this.repository = repository;
     }
 
     @Override
@@ -45,6 +45,7 @@ public class MockDriver implements MidiDriver {
     }
 
     @Override
+    @PreDestroy
     public void close() throws Exception {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
@@ -57,11 +58,6 @@ public class MockDriver implements MidiDriver {
     public void run() {
         System.out.println(" **  Running MockDriver");
 
-        runGuitarKeyEvents();
-        runGuitarEvents();
-    }
-
-    public void runGuitarEvents() {
         final Iterator<GuitarPositions> positionsIterator = new CircularIterator<>(Arrays.asList(
                 GuitarPositionFactory.fromFrets(0, 1, 0, 2, 3),
                 GuitarPositionFactory.fromFrets(),
@@ -75,42 +71,21 @@ public class MockDriver implements MidiDriver {
                 GuitarPositionFactory.fromFrets()
         ));
 
-        setDisposable(
-                Observable
-                        .interval(5, TimeUnit.SECONDS)
-                        .subscribe(next -> {
-                            final GuitarPosition[] positions = positionsIterator.next().getPositions();
+        disposable = Observable
+                .interval(5, TimeUnit.SECONDS)
+                .subscribe(next -> {
+                    final GuitarPosition[] positions = positionsIterator.next().getPositions();
 
-                            for (int stringIndex = 0; stringIndex < positions.length; stringIndex++) {
-                                final GuitarPosition pos = positions[stringIndex];
+                    for (int stringIndex = 0; stringIndex < positions.length; stringIndex++) {
+                        final GuitarPosition pos = positions[stringIndex];
 
-                                if (pos == null) {
-                                    producer.fireNoteOff(MockDriver.noteOffPitchEvent(stringIndex));
-                                } else {
-                                    producer.fireNoteOn(MockDriver.noteOnPitchEvent(pos));
-                                }
-                            }
-                        })
-        );
-    }
-
-    public void runGuitarKeyEvents() {
-        final Iterator<GuitarKey> keys = new CircularIterator<>(repository.getAvailableKeys());
-
-        setDisposable(
-                Observable
-                        .interval(1, 2, TimeUnit.SECONDS)
-                        .subscribeOn(Schedulers.newThread())
-                        .subscribe(next -> repository.updateGuitarKey(keys.next()))
-        );
-    }
-
-    private void setDisposable(Disposable disp) {
-        if (this.disposable == null) {
-            this.disposable = disp;
-        } else {
-            this.disposable = new CompositeDisposable(this.disposable, disp);
-        }
+                        if (pos == null) {
+                            producer.fireNoteOff(MockDriver.noteOffPitchEvent(stringIndex));
+                        } else {
+                            producer.fireNoteOn(MockDriver.noteOnPitchEvent(pos));
+                        }
+                    }
+                });
     }
 
     private static PitchEvent noteOnPitchEvent(final GuitarPosition pos) {
@@ -131,5 +106,10 @@ public class MockDriver implements MidiDriver {
         } catch (InvalidMidiDataException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        run();
     }
 }

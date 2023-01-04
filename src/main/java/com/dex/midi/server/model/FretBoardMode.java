@@ -7,8 +7,12 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@RequiredArgsConstructor(staticName = "of")
+@RequiredArgsConstructor
 public class FretBoardMode {
     @NonNull private String mode;
     @NonNull private String label;
+
+    public static FretBoardMode of(String mode, String label) {
+        return new FretBoardMode(mode, label);
+    }
 }

@@ -31,11 +31,11 @@ public class ServerApplication implements ApplicationRunner, AutoCloseable {
 	public void run(ApplicationArguments args) throws Exception {
 		System.out.println("**** Starting up");
 
-		driver.run();
+//		driver.run();
 	}
 
 	@Override
 	public void close() throws Exception {
-		driver.close();
+//		driver.close();
 	}
 }
