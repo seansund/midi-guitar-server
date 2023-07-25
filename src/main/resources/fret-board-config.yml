@@ -6,6 +6,7 @@ modes:
       - file: layouts/notes/layout.csv
   - mode: keyboard-major
     label: Keyboard Major Scale
+    keyboard: true
     key: G
     pages:
       - page: one
@@ -22,6 +23,7 @@ modes:
         file: layouts/keyboard-major/page2-shift.csv
   - mode: keyboard-pentatonic
     label: Keyboard Pentatonic
+    keyboard: true
     key: G
     pages:
       - page: one
@@ -38,6 +40,7 @@ modes:
         file: layouts/keyboard-pentatonic/page2-shift.csv
   - mode: keyboard-harmonic-minor
     label: Keyboard Harmonic Minor
+    keyboard: true
     key: G
     pages:
       - page: one
@@ -52,3 +55,21 @@ modes:
       - page: two
         shift: on
         file: layouts/keyboard-harmonic-minor/page2-shift.csv
+  - mode: notes-major
+    label: Notes Major Scale
+    key: G
+    underlay: notes
+    pages:
+      - file: layouts/notes-major/layout.csv
+  - mode: notes-pentatonic
+    label: Notes Pentatonic
+    key: G
+    underlay: notes
+    pages:
+      - file: layouts/notes-pentatonic/layout.csv
+  - mode: notes-harmonic-minor
+    label: Notes Harmonic Minor
+    key: G
+    underlay: notes
+    pages:
+      - file: layouts/notes-harmonic-minor/layout.csv

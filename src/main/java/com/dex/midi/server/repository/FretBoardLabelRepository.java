@@ -70,11 +70,10 @@ public class FretBoardLabelRepository {
 
         final FretBoardConfig config = configRepository.getFretBoardConfig();
 
-        if ("notes".equals(config.getMode())) {
+        final FretBoardLayout layout = layoutRepository.getFretBoardLayout(config.getMode());
+        if (!Boolean.TRUE.equals(layout.getKeyboard())) {
             return;
         }
-
-        final FretBoardLayout layout = layoutRepository.getFretBoardLayout(config.getMode());
 
         final Optional<FretBoardLabel> label = getFretBoardLabel(layout, pos);
 
@@ -123,6 +122,12 @@ public class FretBoardLabelRepository {
         FretBoardLabels labels = layout
                 .getFretBoardLabels(page, shift)
                 .transposeKey(config.getKey());
+
+        if (layout.getUnderlay() != null) {
+            final FretBoardLayout underlayLayout = layoutRepository.getFretBoardLayout(layout.getUnderlay());
+
+            labels = labels.applyUnderlay(underlayLayout.getFretBoardLabels(page, shift).transposeKey(config.getKey()));
+        }
 
         System.out.println(" *** FretBoardConfig change: " + config.getMode() + ", " + config.getKey());
         if (labels != null && !labels.equals(getFretBoardLabels())) {

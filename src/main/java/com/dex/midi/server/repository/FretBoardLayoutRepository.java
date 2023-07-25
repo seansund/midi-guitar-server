@@ -55,13 +55,13 @@ public class FretBoardLayoutRepository {
     private FretBoardLayout initializeLayout(FretBoardLayout layout) {
         final List<FretBoardLayoutPage> pages = layout.getPages()
                 .stream()
-                .map(this.initializeLayoutPage(layout))
+                .map(this.initializeLayoutPages(layout))
                 .toList();
 
         return layout.withPages(pages);
     }
 
-    private Function<FretBoardLayoutPage, FretBoardLayoutPage> initializeLayoutPage(FretBoardLayout layout) {
+    private Function<FretBoardLayoutPage, FretBoardLayoutPage> initializeLayoutPages(FretBoardLayout layout) {
         return (FretBoardLayoutPage page) -> this.initializeLayoutPage(page, layout.getKey());
     }
 

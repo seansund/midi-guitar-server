@@ -12,6 +12,8 @@ import java.util.List;
 public class FretBoardLayout extends FretBoardMode {
     private GuitarKey key;
     @NonNull private List<FretBoardLayoutPage> pages = new ArrayList<>();
+    private String underlay;
+    private Boolean keyboard;
 
     public FretBoardLayout() {
         super();

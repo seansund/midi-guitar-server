@@ -9,9 +9,16 @@ import org.springframework.stereotype.Component;
 @Component("MidiDriver")
 @Profile("default")
 public class MidiDriver extends com.dex.midi.Driver implements ApplicationRunner {
+
+    private final ManualDriverControl control;
+
+    public MidiDriver(ManualDriverControl control) {
+        this.control = control;
+    }
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        run();
+        run(control);
     }
 
     @PreDestroy

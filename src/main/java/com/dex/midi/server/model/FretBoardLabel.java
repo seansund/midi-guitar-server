@@ -4,11 +4,12 @@ import com.dex.midi.model.GuitarPosition;
 import lombok.Data;
 import lombok.NonNull;
 
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 @Data
-public class FretBoardLabel {
+public class FretBoardLabel implements GuitarPositionIF {
     private Integer stringIndex;
     private Integer fretIndex;
     private String label;
@@ -35,12 +36,18 @@ public class FretBoardLabel {
         return pos.getStringIndex() == stringIndex && pos.getFretIndex() == fretIndex;
     }
 
+    public boolean forGuitarPosition(@NonNull GuitarPositionIF pos) {
+        return Objects.equals(pos.getStringIndex(), stringIndex) && Objects.equals(pos.getFretIndex(), fretIndex);
+    }
+
     public FretBoardLabel transpose(int transposeDistance) {
         if (transposeDistance == 0) {
             return this;
         }
 
-        int newFretIndex = (fretIndex + 12 + transposeDistance) % FretBoardConstants.FRET_COUNT;
+        final int absTransposeDistance = (transposeDistance + 12) % 12;
+
+        final int newFretIndex = (fretIndex + absTransposeDistance) % FretBoardConstants.FRET_COUNT;
 
         return new FretBoardLabel(stringIndex, newFretIndex, label);
     }

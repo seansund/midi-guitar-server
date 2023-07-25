@@ -14,6 +14,8 @@ public class KeyPressRepository {
     }
 
     public void fireKeyPressed(String key) {
+        System.out.println("Key pressed: " + key);
+
         subject.onNext(key);
     }
 
