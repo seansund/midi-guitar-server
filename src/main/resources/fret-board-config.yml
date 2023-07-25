@@ -1,0 +1,75 @@
+defaultMode: notes
+modes:
+  - mode: notes
+    label: Notes
+    pages:
+      - file: layouts/notes/layout.csv
+  - mode: keyboard-major
+    label: Keyboard Major Scale
+    keyboard: true
+    key: G
+    pages:
+      - page: one
+        shift: off
+        file: layouts/keyboard-major/page1-nonshift.csv
+      - page: one
+        shift: on
+        file: layouts/keyboard-major/page1-shift.csv
+      - page: two
+        shift: off
+        file: layouts/keyboard-major/page2-nonshift.csv
+      - page: two
+        shift: on
+        file: layouts/keyboard-major/page2-shift.csv
+  - mode: keyboard-pentatonic
+    label: Keyboard Pentatonic
+    keyboard: true
+    key: G
+    pages:
+      - page: one
+        shift: off
+        file: layouts/keyboard-pentatonic/page1-nonshift.csv
+      - page: one
+        shift: on
+        file: layouts/keyboard-pentatonic/page1-shift.csv
+      - page: two
+        shift: off
+        file: layouts/keyboard-pentatonic/page2-nonshift.csv
+      - page: two
+        shift: on
+        file: layouts/keyboard-pentatonic/page2-shift.csv
+  - mode: keyboard-harmonic-minor
+    label: Keyboard Harmonic Minor
+    keyboard: true
+    key: G
+    pages:
+      - page: one
+        shift: off
+        file: layouts/keyboard-harmonic-minor/page1-nonshift.csv
+      - page: one
+        shift: on
+        file: layouts/keyboard-harmonic-minor/page1-shift.csv
+      - page: two
+        shift: off
+        file: layouts/keyboard-harmonic-minor/page2-nonshift.csv
+      - page: two
+        shift: on
+        file: layouts/keyboard-harmonic-minor/page2-shift.csv
+  - mode: notes-major
+    label: Notes Major Scale
+    key: G
+    underlay: notes
+    pages:
+      - file: layouts/notes-major/layout.csv
+  - mode: notes-pentatonic
+    label: Notes Pentatonic
+    key: G
+    underlay: notes
+    pages:
+      - file: layouts/notes-pentatonic/layout.csv
+  - mode: notes-harmonic-minor
+    label: Notes Harmonic Minor
+    key: G
+    underlay: notes
+    pages:
+      - file: layouts/notes-harmonic-minor/layout.csv

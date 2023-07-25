@@ -1,9 +1,55 @@
 type Query {
-    guitarPositions: [GuitarPosition]
-    chord: [Chord]
+    getAvailableKeys: [GuitarKey]
+    getAvailableModes: [FretBoardMode]
+    getFretBoardConfig: FretBoardConfig
+    getGuitarPositions: [GuitarPosition]
+    getChords: [Chord]
+    getFretBoardLabels: [FretBoardLabel]
+    getLastKeyPressed: String
 }
+
+type Mutation {
+    stop: String
+    updateFretBoardMode(mode: String!): FretBoardConfig
+    updateGuitarKey(key: String!): FretBoardConfig
+}
+
 type Subscription {
-    noteOn: PitchEvent
-    noteOff: PitchEvent
-    chordChange: [Chord]
+    fretBoardConfig: FretBoardConfig
+    guitarPositions: [GuitarPosition]
+    chords: [Chord]
+    fretBoardLabels: [FretBoardLabel]
+    keyPressed: String
+}
+
+type GuitarKey {
+    key: String!
+    label: String!
+}
+
+type FretBoardMode {
+    mode: String!
+    label: String!
+}
+
+type FretBoardConfig {
+    key: String!
+    mode: String!
+}
+
+type GuitarPosition {
+    stringIndex: Int!
+    fretIndex: Int!
+    active: Boolean!
+    bend: Boolean!
+}
+
+type Chord {
+    label: String!
+}
+
+type FretBoardLabel {
+    stringIndex: Int!
+    fretIndex: Int!
+    label: String!
 }

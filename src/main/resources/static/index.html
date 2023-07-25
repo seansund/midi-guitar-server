@@ -18,7 +18,7 @@
             let result;
             client.subscribe(
                 {
-                    query: '{ greeting }',
+                    query: `{ getFretBoardConfig { key mode } }`,
                 },
                 {
                     next: (data) => (result = data),
@@ -28,7 +28,41 @@
             );
         });
 
-        console.log("Query result: " + result);
+        console.log("getFretBoardConfig query result: ", result);
+    })();
+    (async () => {
+        const result = await new Promise((resolve, reject) => {
+            let result;
+            client.subscribe(
+                {
+                    query: `query { getAvailableKeys { key label } }`,
+                },
+                {
+                    next: (data) => (result = data),
+                    error: reject,
+                    complete: () => resolve(result),
+                },
+            );
+        });
+
+        console.log("getAvailableKeys query result: ", result);
+    })();
+    (async () => {
+        const result = await new Promise((resolve, reject) => {
+            let result;
+            client.subscribe(
+                {
+                    query: `query { getAvailableModes { mode label } }`,
+                },
+                {
+                    next: (data) => (result = data),
+                    error: reject,
+                    complete: () => resolve(result),
+                },
+            );
+        });
+
+        console.log("getAvailableModes query result: ", result);
     })();
 
     // subscription
@@ -40,7 +74,7 @@
         await new Promise((resolve, reject) => {
             client.subscribe(
                 {
-                    query: 'subscription { greetings }',
+                    query: `subscription { fretBoardConfig { key mode } }`,
                 },
                 {
                     next: onNext,
