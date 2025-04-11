@@ -1,14 +1,12 @@
 package com.dex.midi.server.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class FretBoardLayout extends FretBoardMode {
     private GuitarKey key;
     @NonNull private List<FretBoardLayoutPage> pages = new ArrayList<>();
