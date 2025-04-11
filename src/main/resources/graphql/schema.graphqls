@@ -12,6 +12,7 @@ type Mutation {
     stop: String
     updateFretBoardMode(mode: String!): FretBoardConfig
     updateGuitarKey(key: String!): FretBoardConfig
+    pressNote(stringIndex: Int!, fretIndex: Int!): [GuitarPosition]
 }
 
 type Subscription {
