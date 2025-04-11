@@ -1,12 +1,13 @@
 package com.dex.midi.server.model;
 
 import com.dex.midi.model.GuitarPosition;
-import com.dex.midi.model.GuitarPositions;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Arrays;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class ActiveGuitarPosition extends GuitarPosition {
     private boolean active;
     private boolean bend;

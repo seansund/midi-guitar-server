@@ -5,6 +5,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Repository;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -31,13 +32,19 @@ public class FretBoardLayoutRepository {
         layouts = new HashMap<>();
     }
 
+    private static LoaderOptions buildLoaderOptions() {
+        LoaderOptions loaderOptions = new LoaderOptions();
+        loaderOptions.setAllowDuplicateKeys(false);
+        return loaderOptions;
+    }
+
     @PostConstruct
     public void init() {
         final String location = "classpath:/fret-board-config.yml";
         try {
             final Resource configResource = resourceLoader.getResource(location);
 
-            Yaml yaml = new Yaml(new Constructor(FretBoardLayoutConfig.class));
+            Yaml yaml = new Yaml(new Constructor(FretBoardLayoutConfig.class, buildLoaderOptions()));
 
             final FretBoardLayoutConfig layoutConfig = yaml.load(configResource.getInputStream());
 
