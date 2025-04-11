@@ -81,9 +81,9 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.cntk-meta.outputs.tags }}
           labels: ${{ steps.cntk-meta.outputs.labels }}
-          build-args:
-            - GIT_USERNAME=${{ secrets.GIT_USERNAME }}
-            - GIT_TOKEN=${{ secrets.GIT_TOKEN }}
+          build-args: |
+            GIT_USERNAME=${{ secrets.GIT_USERNAME }}
+            GIT_TOKEN=${{ secrets.GIT_TOKEN }}
 
   notify:
     needs: ["build"]
