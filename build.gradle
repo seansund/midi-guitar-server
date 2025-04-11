@@ -7,11 +7,14 @@ apply plugin: 'io.spring.dependency-management'
 group = 'midi-guitar'
 version = '0.0.1-SNAPSHOT'
 
+jar.archiveFileName = 'midi-guitar-server.jar'
+bootJar.archiveFileName = 'midi-guitar-server.jar'
+
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
     maven {
-        url "https://maven.pkg.github.com/seansund/maven"
+        url = "https://maven.pkg.github.com/seansund/maven"
         credentials {
             username = project.findProperty("gpr.user") ?: System.getenv("GIT_USERNAME")
             password = project.findProperty("gpr.key") ?: System.getenv("GIT_TOKEN")
@@ -23,7 +26,7 @@ dependencies {
     // This dependency is used by the application.
     implementation libs.guava
 
-    implementation 'midi-guitar:midi-guitar:1.0.0'
+    implementation 'midi-guitar:midi-guitar:1.0.1'
 
     implementation group: 'io.reactivex.rxjava3', name: 'rxjava', version: '3.1.10'
     implementation group: 'io.projectreactor.addons', name: 'reactor-adapter', version: '3.5.2'
@@ -59,6 +62,10 @@ testing {
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(22)
+        languageVersion = JavaLanguageVersion.of(21)
     }
+}
+
+springBoot {
+    mainClass = 'com.dex.midi.server.ServerApplication'
 }
