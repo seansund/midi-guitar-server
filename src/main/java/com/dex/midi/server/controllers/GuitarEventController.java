@@ -5,6 +5,8 @@ import com.dex.midi.server.model.ActiveGuitarPosition;
 import com.dex.midi.server.model.ChordLabel;
 import com.dex.midi.server.repository.GuitarEventRepository;
 import io.reactivex.rxjava3.core.BackpressureStrategy;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SubscriptionMapping;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,16 @@ public class GuitarEventController {
     @QueryMapping
     public Collection<ChordLabel> getChords() {
         return repo.getChords();
+    }
+
+    @MutationMapping
+    public ActiveGuitarPosition[] pressNote(@Argument("stringIndex") int stringIndex, @Argument("fretIndex") int fretIndex) {
+
+        final GuitarPosition position = new GuitarPosition(stringIndex, fretIndex);
+
+        repo.pressNote(position);
+
+        return repo.getGuitarPositions();
     }
 
     @SubscriptionMapping
