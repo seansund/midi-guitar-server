@@ -27,7 +27,7 @@ public class MockKeyChangeRunner implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         final Iterator<GuitarKey> keys = new CircularIterator<>(repository.getAvailableKeys());
 
         disposable = Observable

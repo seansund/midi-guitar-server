@@ -65,7 +65,7 @@ public class MockDriver implements MidiDriver, ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         run();
     }
 }

@@ -1,13 +1,15 @@
 package com.dex.midi.server.model;
 
-import com.dex.midi.event.PitchEvent;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 public class FretBoardLayoutPage {
+    @Getter
     private KeyboardPage page;
+    @Getter
     private KeyboardShift shift;
     private String file;
     private FretBoardLabels labels;
@@ -17,9 +19,6 @@ public class FretBoardLayoutPage {
                 (pageId == page && shiftId == shift);
     }
 
-    public KeyboardPage getPage() {
-        return page;
-    }
     public void setPage(String page) {
         this.page = KeyboardPage.lookup(page);
     }
@@ -27,9 +26,6 @@ public class FretBoardLayoutPage {
         this.page = page;
     }
 
-    public KeyboardShift getShift() {
-        return shift;
-    }
     public void setShift(boolean shift) {
         this.shift = KeyboardShift.lookup(shift);
     }

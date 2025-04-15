@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 public class DriverControlImpl extends Thread implements ManualDriverControl {
 
     private boolean running = true;
-    private Object sync = new Object();
 
     @Override
     public void run() {
