@@ -1,6 +1,5 @@
 package com.dex.midi.server.controllers;
 
-import com.dex.midi.server.model.FretBoardConfig;
 import com.dex.midi.server.model.FretBoardLabel;
 import com.dex.midi.server.repository.FretBoardLabelRepository;
 import io.reactivex.rxjava3.core.BackpressureStrategy;

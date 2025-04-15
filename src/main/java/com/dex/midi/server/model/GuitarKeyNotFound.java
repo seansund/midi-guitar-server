@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @Getter
 public class GuitarKeyNotFound extends RuntimeException {
-    private String key;
+    private final String key;
 
     public GuitarKeyNotFound(String key) {
         super("Guitar key not found: " + key);

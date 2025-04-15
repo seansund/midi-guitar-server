@@ -1,14 +1,12 @@
 package com.dex.midi.server.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+@Getter
 public enum GuitarKey {
     G("G", "G / e"),
     Ab("Ab", "Ab / f"),
@@ -23,20 +21,12 @@ public enum GuitarKey {
     F("F", "F / d"),
     Gb("Gb", "Gb / d#");
 
-    private String key;
-    private String label;
+    private final String key;
+    private final String label;
 
     GuitarKey(String key, String label) {
         this.key = key;
         this.label = label;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public String getLabel() {
-        return label;
     }
 
     public static List<GuitarKey> getKeys() {

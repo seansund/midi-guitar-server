@@ -11,8 +11,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Component()
@@ -28,9 +28,7 @@ public class MockKeyPressedRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
-        final Iterator<GuitarPosition> positionIterator = new CircularIterator<>(Arrays.asList(
-
-        ));
+        final Iterator<GuitarPosition> positionIterator = new CircularIterator<>(List.of());
 
         disposable = Observable
                 .interval(5, TimeUnit.SECONDS)
