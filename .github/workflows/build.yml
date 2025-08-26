@@ -53,7 +53,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
 
-      - name: Update version in build1.gradle
+      - name: Update version in build.gradle
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"

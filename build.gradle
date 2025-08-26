@@ -28,7 +28,7 @@ dependencies {
     // This dependency is used by the application.
     implementation libs.guava
 
-    implementation 'midi-guitar:midi-guitar:1.1.0'
+    implementation 'midi-guitar:midi-guitar:1.1.1'
 
     implementation group: 'io.reactivex.rxjava3', name: 'rxjava', version: '3.1.10'
     implementation group: 'io.projectreactor.addons', name: 'reactor-adapter', version: '3.5.2'
