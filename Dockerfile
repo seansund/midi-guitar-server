@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/ubi9/openjdk-21:1.22-1.1743606703 as base
+FROM registry.access.redhat.com/ubi9/openjdk-21:1.23-6.1755674728 as base
 
 FROM base as builder
 
